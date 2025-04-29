@@ -4,18 +4,14 @@ import torch
 import torch.nn.functional as F
 from transformers import DistilBertTokenizer, DistilBertModel
 
-# =========================
-# Load Tokenizer and Model
-# =========================
+
 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
 model = DistilBertModel.from_pretrained('distilbert-base-uncased')
 
 # Set model to evaluation mode
 model.eval()
 
-# =========================
-# Clean Text Function
-# =========================
+
 def clean_text(text):
     text = text.lower()  # Convert to lowercase
     text = re.sub(r'[^\w\s]', '', text)  # Remove punctuation
@@ -23,9 +19,6 @@ def clean_text(text):
     text = text.strip()  # Remove leading/trailing whitespace
     return text
 
-# =========================
-# Prepare Embedding
-# =========================
 def prepare_embedding(text):
     # Clean the text
     text = clean_text(text)
@@ -40,16 +33,11 @@ def prepare_embedding(text):
 
     return embeddings
 
-# =========================
-# Cosine Similarity
-# =========================
+
 def calculate_cosine_similarity(embedding1, embedding2):
     similarity = F.cosine_similarity(embedding1, embedding2)
     return similarity.item()
 
-# =========================
-# Process CSV
-# =========================
 def process_csv(csv_file):
     # Load CSV
     df = pd.read_csv(csv_file)
@@ -84,9 +72,7 @@ def process_csv(csv_file):
 
     return results
 
-# =========================
-# MAIN
-# =========================
+
 if __name__ == "__main__":
     # Provide your CSV file path
     csv_file = r"/mnt/c/Users/jaish/Downloads/DataNeuron_DataScience_Task1/DataNeuron_Text_Similarity.csv"
