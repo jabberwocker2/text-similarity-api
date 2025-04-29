@@ -4,15 +4,11 @@ import torch
 from transformers import BertTokenizer, BertModel
 import numpy as np
 
-# ================================
-# Load model + tokenizer ONCE
-# ================================
+
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 model = BertModel.from_pretrained('bert-base-uncased')
 
-# ================================
-# Helper Functions
-# ================================
+
 def prepare_embedding(text):
     inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
     with torch.no_grad():
@@ -26,9 +22,6 @@ def calculate_cosine_similarity(embedding1, embedding2):
     cos_sim = np.dot(embedding1, embedding2) / (np.linalg.norm(embedding1) * np.linalg.norm(embedding2))
     return cos_sim
 
-# ================================
-# FastAPI App
-# ================================
 app = FastAPI()
 
 class TextPair(BaseModel):
