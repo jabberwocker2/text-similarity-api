@@ -34,3 +34,7 @@ async def get_similarity(data: TextPair):
     embedding2 = prepare_embedding(data.text2)
     similarity_score = calculate_cosine_similarity(embedding1, embedding2)
     return {"similarity score": round(float(similarity_score), 4)}
+
+@app.get("/")
+def read_root():
+    return {"message": "API is live. Use POST with 'text1' and 'text2'."}
